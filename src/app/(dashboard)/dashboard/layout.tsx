@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default function RootLayout({
+export default function DashboardLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -17,11 +17,11 @@ export default function RootLayout({
           </Link>
         </div>
       </header>
-      <div>
+      <div className="container md:grid md:grid-cols-[220px_minmax(0,1fr)]">
         <aside>
-          <div></div>
+          <div>Dashboard Navigation</div>
         </aside>
-        <main className="container mx-auto px-4 py-8">{children}</main>
+        <main>{children}</main>
       </div>
     </div>
   );
