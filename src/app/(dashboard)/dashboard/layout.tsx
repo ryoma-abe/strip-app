@@ -1,3 +1,4 @@
+import MobileNav from "@/components/ui/dashboard/mobile-nav";
 import DashboardNavigation from "@/components/ui/dashboard/nav";
 import Link from "next/link";
 
@@ -10,6 +11,7 @@ export default function DashboardLayout({
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
       <header className="border-b bg-white/80 backdrop-blur-sm dark:bg-slate-900/80 dark:border-slate-700">
         <div className="container mx-auto px-4 py-4">
+          <MobileNav />
           <Link
             href="/"
             className="text-2xl font-bold text-slate-900 dark:text-slate-100 hover:opacity-80 transition-opacity"
@@ -19,7 +21,7 @@ export default function DashboardLayout({
         </div>
       </header>
       <div className="container mx-auto px-4 py-8 md:grid md:grid-cols-[220px_minmax(0,1fr)] md:gap-6 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-10">
-        <aside className="sticky top-4 h-fit">
+        <aside className="hidden md:block sticky top-4 h-fit">
           <nav className="rounded-lg bg-white/50 backdrop-blur-sm p-4 dark:bg-slate-800/50">
             <div className="font-semibold text-slate-900 dark:text-slate-100 mb-4">
               <DashboardNavigation />
