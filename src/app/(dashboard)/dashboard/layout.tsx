@@ -17,11 +17,15 @@ export default function DashboardLayout({
           </Link>
         </div>
       </header>
-      <div className="container md:grid md:grid-cols-[220px_minmax(0,1fr)]">
-        <aside>
-          <div>Dashboard Navigation</div>
+      <div className="container mx-auto px-4 py-8 md:grid md:grid-cols-[220px_minmax(0,1fr)] md:gap-6 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-10">
+        <aside className="sticky top-4 h-fit">
+          <nav className="rounded-lg bg-white/50 backdrop-blur-sm p-4 dark:bg-slate-800/50">
+            <div className="font-semibold text-slate-900 dark:text-slate-100 mb-4">
+              Dashboard Navigation
+            </div>
+          </nav>
         </aside>
-        <main>{children}</main>
+        <main className="min-h-[calc(100vh-120px)]">{children}</main>
       </div>
     </div>
   );
