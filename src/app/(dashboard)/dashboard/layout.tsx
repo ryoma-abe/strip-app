@@ -1,3 +1,4 @@
+import DashboardNavigation from "@/components/ui/dashboard/nav";
 import Link from "next/link";
 
 export default function DashboardLayout({
@@ -21,7 +22,7 @@ export default function DashboardLayout({
         <aside className="sticky top-4 h-fit">
           <nav className="rounded-lg bg-white/50 backdrop-blur-sm p-4 dark:bg-slate-800/50">
             <div className="font-semibold text-slate-900 dark:text-slate-100 mb-4">
-              
+              <DashboardNavigation />
             </div>
           </nav>
         </aside>
