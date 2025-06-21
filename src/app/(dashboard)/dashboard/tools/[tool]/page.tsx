@@ -1,3 +1,7 @@
 export default function ToolPage() {
-  return <div>ToolPage</div>;
+  return (
+    <div>
+      <h2></h2>
+    </div>
+  );
 }
