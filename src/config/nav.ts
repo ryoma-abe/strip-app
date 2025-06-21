@@ -1,6 +1,7 @@
+import { NavItem } from "@/types/nav";
 import { Image, Images, Layers, LayoutDashboard, Settings } from "lucide-react";
 
-export const navItems = [
+export const navItems: NavItem[] = [
   {
     title: "ダッシュボード",
     href: "/dashboard",
