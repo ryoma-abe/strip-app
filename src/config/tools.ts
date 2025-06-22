@@ -17,3 +17,7 @@ export const tools = {
     component: ImageGenerator,
   },
 };
+
+// tools オブジェクトにあるキーだけを型として抽出し、他の文字列を弾きたい
+export type ToolType = keyof typeof tools;
+
