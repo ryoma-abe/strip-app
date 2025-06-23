@@ -9,7 +9,7 @@ export default function ToolPage({ params }: { params: { tool: string } }) {
   return (
     <PageContainer>
       <PageHeader title={tool.title} description={tool.description} />
-      <div>
+      <div className="max-w-2xl">
         <ToolComponent />
       </div>
     </PageContainer>
