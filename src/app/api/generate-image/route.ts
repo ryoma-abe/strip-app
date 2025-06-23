@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import axios from "axios";
 import FormData from "form-data";
-export default async function POST(req: Request) {
+
+export async function POST(req: Request) {
   const { keyword } = await req.json();
   try {
     const payload = {
@@ -25,6 +26,7 @@ export default async function POST(req: Request) {
     if (response.status !== 200) {
       throw new Error(`API error ${response.status}`);
     }
+    return NextResponse.json(response.data);
   } catch (error) {
     console.error("エラーが発生しました:", error);
     return NextResponse.json(
