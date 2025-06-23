@@ -13,6 +13,7 @@ export default function ImageGenerator() {
               id="keyword"
               name="keyword"
               placeholder="作成したい画像のキーワードを入力してください"
+              required
             />
           </div>
           <Button type="submit">画像を生成する</Button>
