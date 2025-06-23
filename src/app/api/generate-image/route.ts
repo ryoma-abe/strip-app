@@ -2,9 +2,10 @@ import { NextResponse } from "next/server";
 import axios from "axios";
 import FormData from "form-data";
 export default async function POST(req: Request) {
+  const { keyword } = await req.json();
   try {
     const payload = {
-      prompt: "Lighthouse on a cliff overlooking the ocean",
+      prompt: { keyword },
       output_format: "png",
     };
 
