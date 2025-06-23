@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import fs from "node:fs";
 import axios from "axios";
 import FormData from "form-data";
-export default function POST(req: Request) {
+export default async function POST(req: Request) {
   try {
     const payload = {
       prompt: "Lighthouse on a cliff overlooking the ocean",
