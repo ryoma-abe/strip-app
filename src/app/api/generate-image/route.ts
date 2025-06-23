@@ -1,12 +1,11 @@
 import { NextResponse } from "next/server";
-import fs from "node:fs";
 import axios from "axios";
 import FormData from "form-data";
 export default async function POST(req: Request) {
   try {
     const payload = {
       prompt: "Lighthouse on a cliff overlooking the ocean",
-      output_format: "webp",
+      output_format: "png",
     };
 
     const response = await axios.postForm(
@@ -16,16 +15,14 @@ export default async function POST(req: Request) {
         validateStatus: undefined,
         responseType: "arraybuffer",
         headers: {
-          Authorization: `Bearer sk-MYAPIKEY`,
+          Authorization: `Bearer ${process.env.STABILITY_API_KEY}`,
           Accept: "image/*",
         },
       }
     );
 
-    if (response.status === 200) {
-      fs.writeFileSync("./lighthouse.webp", Buffer.from(response.data));
-    } else {
-      throw new Error(`${response.status}: ${response.data.toString()}`);
+    if (response.status !== 200) {
+      throw new Error(`API error ${response.status}`);
     }
   } catch (error) {
     console.error("エラーが発生しました:", error);
