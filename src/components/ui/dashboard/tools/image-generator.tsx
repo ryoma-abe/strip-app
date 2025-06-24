@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { Input } from "@/components/ui/input";
@@ -30,6 +31,19 @@ export default function ImageGenerator() {
           <Button type="submit">画像を生成する</Button>
         </form>
       </div>
+      {state.imageUrl && (
+        <div className="space-y-4">
+          <div className="overflow-hidden rounded-lg border bg-background">
+            <div>
+              <img
+                src={state.imageUrl}
+                alt="Generated Image"
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
