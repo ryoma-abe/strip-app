@@ -1,6 +1,8 @@
 "use server";
 
-export async function generateImage(formData: FormData) {
+import { generateImageState } from "@/types/actions";
+
+export async function generateImage(_state: generateImageState, formData: FormData) {
   const keyword = formData.get("keyword");
   try {
     await fetch(`${process.env.BASE_URL}/api/generate-image`, {
