@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { useActionState } from "react";
 import { generateImage } from "@/actions/actions";
 import { generateImageState } from "@/types/actions";
+import { Download } from "lucide-react";
 
 const initialState: generateImageState = {
   status: "idle",
@@ -34,7 +35,7 @@ export default function ImageGenerator() {
       {state.imageUrl && (
         <div className="space-y-4">
           <div className="overflow-hidden rounded-lg border bg-background">
-            <div>
+            <div className="aspect-video relative">
               <img
                 src={state.imageUrl}
                 alt="Generated Image"
@@ -42,6 +43,10 @@ export default function ImageGenerator() {
               />
             </div>
           </div>
+          <Button className="w-full" variant={"secondary"}>
+            <Download className="mr-2" />
+            ダウンロード
+          </Button>
         </div>
       )}
     </div>
