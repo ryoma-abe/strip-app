@@ -1,7 +1,6 @@
 "use server";
 
 export async function generateImage(formData: FormData) {
-  "use server";
   const keyword = formData.get("keyword");
   try {
     await fetch(`${process.env.BASE_URL}/api/generate-image`, {
