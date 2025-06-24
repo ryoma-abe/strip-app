@@ -7,14 +7,19 @@ import { Button } from "@/components/ui/button";
 import { useActionState } from "react";
 import { generateImage } from "@/actions/actions";
 import { generateImageState } from "@/types/actions";
-import { Download } from "lucide-react";
+import { Download, ImageIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
+import LoadingSpinner from "../loading-spinner";
 
 const initialState: generateImageState = {
   status: "idle",
 };
 
 export default function ImageGenerator() {
-  const [state, formAction] = useActionState(generateImage, initialState);
+  const [state, formAction, pending] = useActionState(
+    generateImage,
+    initialState
+  );
 
   return (
     <div className="space-y-6">
@@ -29,7 +34,20 @@ export default function ImageGenerator() {
               required
             />
           </div>
-          <Button type="submit">画像を生成する</Button>
+          <Button
+            type="submit"
+            disabled={pending}
+            className={cn("w-full duration-200", pending && "bg-primary/80")}
+          >
+            {pending ? (
+              <LoadingSpinner />
+            ) : (
+              <>
+                <ImageIcon className="mr-2" />
+                画像を生成する
+              </>
+            )}
+          </Button>
         </form>
       </div>
       {state.imageUrl && (
