@@ -26,7 +26,10 @@ export async function POST(req: Request) {
     if (response.status !== 200) {
       throw new Error(`API error ${response.status}`);
     }
-    return NextResponse.json(response.data);
+    // Base64エンコーディング
+    const baseImage = Buffer.from(response.data).toString("base64");
+    const imageUrl = `data:image/png;base64,${baseImage}`;
+    return NextResponse.json({ imageUrl });
   } catch (error) {
     console.error("エラーが発生しました:", error);
     return NextResponse.json(
