@@ -6,7 +6,7 @@ export async function POST(req: Request) {
   const { keyword } = await req.json();
   try {
     const payload = {
-      prompt: { keyword },
+      prompt: keyword,
       output_format: "png",
     };
 
