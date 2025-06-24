@@ -5,8 +5,9 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { useActionState } from "react";
 import { generateImage } from "@/actions/actions";
+import { generateImageState } from "@/types/actions";
 
-const initialState = {
+const initialState: generateImageState = {
   status: "idle",
 };
 
