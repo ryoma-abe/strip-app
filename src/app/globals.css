@@ -120,3 +120,7 @@
     @apply bg-background text-foreground;
   }
 }
+
+.cl-avatarBox {
+  @apply h-10 w-10;
+}
