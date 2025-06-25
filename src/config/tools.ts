@@ -1,3 +1,4 @@
+import BackgroundRemover from "@/components/ui/dashboard/tools/background-remover";
 import ImageGenerator from "@/components/ui/dashboard/tools/image-generator";
 
 export const tools = {
@@ -9,7 +10,7 @@ export const tools = {
   "remove-bg": {
     title: "背景削除",
     description: "背景削除ページです",
-    component: ImageGenerator,
+    component: BackgroundRemover,
   },
   optimize: {
     title: "画像圧縮",
@@ -20,4 +21,3 @@ export const tools = {
 
 // tools オブジェクトにあるキーだけを型として抽出し、他の文字列を弾きたい
 export type ToolType = keyof typeof tools;
-
