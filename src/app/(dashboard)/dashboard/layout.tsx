@@ -1,5 +1,6 @@
 import MobileNav from "@/components/ui/dashboard/mobile-nav";
 import DashboardNavigation from "@/components/ui/dashboard/nav";
+import { Toaster } from "@/components/ui/sonner";
 import Link from "next/link";
 
 export default function DashboardLayout({
@@ -30,6 +31,7 @@ export default function DashboardLayout({
         </aside>
         <main className="min-h-[calc(100vh-120px)]">{children}</main>
       </div>
+      <Toaster />
     </div>
   );
 }
