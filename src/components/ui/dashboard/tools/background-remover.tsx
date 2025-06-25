@@ -22,9 +22,9 @@ export default function BackgroundRemover() {
   );
 
   const handleDownload = () => {
-    if (!state.imageUrl) return;
+    if (!state.processedImage) return;
     try {
-      const base64Data = state.imageUrl?.split(",")[1];
+      const base64Data = state.processedImage?.split(",")[1];
       const blob = new Blob([Buffer.from(base64Data, "base64")], {
         type: "image/png",
       });

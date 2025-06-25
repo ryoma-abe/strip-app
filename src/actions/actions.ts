@@ -1,6 +1,6 @@
 "use server";
 
-import { generateImageState } from "@/types/actions";
+import { generateImageState, RemoveBackgroundState } from "@/types/actions";
 
 export async function generateImage(
   state: generateImageState,
@@ -38,36 +38,36 @@ export async function generateImage(
 }
 
 export async function removeBackground(
-  state: generateImageState,
+  state: RemoveBackgroundState,
   formData: FormData
-): Promise<generateImageState> {
-  const keyword = formData.get("keyword");
+): Promise<RemoveBackgroundState> {
+  const image = formData.get("image") as File;
 
-  if (!keyword || typeof keyword !== "string") {
+  if (!image) {
     return {
       status: "error",
-      error: "キーワードを入力してください",
+      error: "画像ファイルを選択してください",
     };
   }
   try {
-    const res = await fetch(`${process.env.BASE_URL}/api/generate-image`, {
+    const res = await fetch(`${process.env.BASE_URL}/api/remove-background`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ keyword }),
+      body: formData,
     });
+
+    if (!res.ok) {
+      throw new Error("背景の削除に失敗しました");
+    }
     const data = await res.json();
     return {
       status: "success",
-      imageUrl: data.imageUrl,
-      keyword: keyword,
+      processedImage: data.imageUrl,
     };
   } catch (error) {
     console.error(error);
     return {
       status: "error",
-      error: "画像の生成に失敗しました",
+      error: "背景の削除に失敗しました",
     };
   }
 }
