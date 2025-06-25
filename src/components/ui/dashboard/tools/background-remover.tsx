@@ -31,7 +31,7 @@ export default function BackgroundRemover() {
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = url;
-      link.download = `${state.keyword}.png`;
+      link.download = `background-removed.png`;
       document.body.appendChild(link);
       link.click();
 
@@ -79,12 +79,13 @@ export default function BackgroundRemover() {
           </Button>
         </form>
       </div>
-      {state.imageUrl && (
+      {/* image preview */}
+      {state.processedImage && (
         <div className="space-y-4">
           <div className="overflow-hidden rounded-lg border bg-background">
             <div className="aspect-video relative">
               <img
-                src={state.imageUrl}
+                src={state.processedImage}
                 alt="Generated Image"
                 className="w-full h-full object-cover"
               />
