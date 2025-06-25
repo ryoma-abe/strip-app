@@ -4,16 +4,36 @@ import FormData from "form-data";
 import sharp from "sharp";
 
 export async function POST(req: Request) {
-  const { keyword } = await req.json();
-  try {
-    const payload = {
-      prompt: keyword,
-      output_format: "png",
-    };
+  const formData = await req.formData();
+  const file = formData.get("image") as File;
 
-    const response = await axios.postForm(
-      `https://api.stability.ai/v2beta/stable-image/generate/core`,
-      axios.toFormData(payload, new FormData()),
+  if (!file) {
+    return NextResponse.json(
+      { error: "画像ファイルを選択してください。" },
+      { status: 400 }
+    );
+  }
+
+  const bytes = await file.arrayBuffer();
+  const buffer = Buffer.from(bytes);
+
+  const optimizedInput = await sharp(buffer)
+    .resize(1280, 720)
+    .png({ quality: 80, compressionLevel: 9 })
+    .toBuffer();
+
+  try {
+    const formData = new FormData();
+    formData.append("image", optimizedInput, {
+      filename: "image.png",
+      contentType: "image/png",
+    });
+
+    formData.append("output_format", "png");
+
+    const response = await axios.post(
+      `https://api.stability.ai/v2beta/stable-image/edit/remove-background`,
+      formData,
       {
         validateStatus: undefined,
         responseType: "arraybuffer",
@@ -37,6 +57,7 @@ export async function POST(req: Request) {
     // Base64エンコーディング
     const baseImage = optimizedImage.toString("base64");
     const imageUrl = `data:image/png;base64,${baseImage}`;
+
     return NextResponse.json({ imageUrl });
   } catch (error) {
     console.error("エラーが発生しました:", error);
