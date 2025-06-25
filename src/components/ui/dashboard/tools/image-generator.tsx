@@ -10,7 +10,6 @@ import { generateImageState } from "@/types/actions";
 import { Download, ImageIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import LoadingSpinner from "../loading-spinner";
-import { toast } from "sonner";
 
 const initialState: generateImageState = {
   status: "idle",
@@ -39,14 +38,14 @@ export default function ImageGenerator() {
       document.body.removeChild(link);
 
       window.URL.revokeObjectURL(url);
-      toast("ダウンロード完了", {
-        description: "ダウンロード完了しました",
-      });
+      // toast("ダウンロード完了", {
+      //   description: "ダウンロード完了しました",
+      // });
     } catch (error) {
       console.error("ダウンロードエラー", error);
-      toast("エラー", {
-        description: "ダウンロードに失敗しました",
-      });
+      // toast("エラー", {
+      //   description: "ダウンロードに失敗しました",
+      // });
     }
   };
   return (
