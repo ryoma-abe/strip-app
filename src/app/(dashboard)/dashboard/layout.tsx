@@ -12,7 +12,6 @@ export default function DashboardLayout({
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
       <header className="border-b bg-white/80 backdrop-blur-sm dark:bg-slate-900/80 dark:border-slate-700">
         <div className="px-6 py-4">
-          <MobileNav />
           <div className="flex items-center justify-between">
             <Link
               href="/"
@@ -20,7 +19,10 @@ export default function DashboardLayout({
             >
               AI Image Generator
             </Link>
-            <AuthButton />
+            <div className="hidden md:block">
+              <AuthButton />
+            </div>
+            <MobileNav />
           </div>
         </div>
       </header>
