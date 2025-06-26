@@ -25,7 +25,7 @@ export default function DashboardNavigation() {
             </Button>
           </li>
         ))}
-        <li>
+        <li className="block md:hidden">
           <AuthButton />
         </li>
       </ul>
