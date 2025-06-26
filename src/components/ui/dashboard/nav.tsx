@@ -4,6 +4,7 @@ import { navItems } from "@/config/nav";
 import { Button } from "../button";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import AuthButton from "@/components/auth/auth-button";
 
 export default function DashboardNavigation() {
   const pathName = usePathname();
@@ -24,6 +25,9 @@ export default function DashboardNavigation() {
             </Button>
           </li>
         ))}
+        <li>
+          <AuthButton />
+        </li>
       </ul>
     </nav>
   );
