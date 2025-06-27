@@ -4,6 +4,37 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
 }
+
+model User {
+  id String @id @default(uuid())
+  clerkId String @unique
+  email String @unique
+  stripeCustomerID String? @unique
+  credits Int @default(5)
+  subscriptionStatus SubscriptionStatus @default(FREE)
+  subscription Subscription?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+model Subscription {
+  id String @id @default(uuid())
+  userId String @unique
+  user User @relation(fields: [userId], references: [id])
+  stripeSubscriptionID String @unique
+  stripePriceID String
+  stripeCurrentPeriodEnd DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}
+
+enum SubscriptionStatus {
+  FREE
+  BASIC
+  PRO
+}
+
