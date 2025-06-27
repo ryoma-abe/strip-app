@@ -5,6 +5,7 @@ import { Button } from "../button";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import AuthButton from "@/components/auth/auth-button";
+import CreditDisplay from "./credit-display";
 
 export default function DashboardNavigation() {
   const pathName = usePathname();
@@ -29,6 +30,7 @@ export default function DashboardNavigation() {
           <AuthButton />
         </li>
       </ul>
+      <CreditDisplay />
     </nav>
   );
 }
