@@ -1,5 +1,6 @@
+import { createUser } from "@/lib/users";
 import { verifyWebhook } from "@clerk/nextjs/webhooks";
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
@@ -13,7 +14,15 @@ export async function POST(req: NextRequest) {
       `Received webhook with ID ${id} and event type of ${eventType}`
     );
     if (evt.type === "user.created") {
-      console.log("userId:", evt.data.id);
+      try {
+        const user = await createUser(
+          evt.data.id,
+          evt.data.email_addresses[0].email_address
+        );
+        return NextResponse.json({ user }, { status: 200 });
+      } catch (error) {
+        return NextResponse.json({ error }, { status: 500 });
+      }
     }
 
     return new Response("Webhook received", { status: 200 });
