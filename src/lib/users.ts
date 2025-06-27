@@ -17,3 +17,32 @@ export async function createUser(clerkId: string, email: string) {
     throw error;
   }
 }
+
+export async function updateUser(clerkId: string, email: string) {
+  try {
+    const user = await prisma.user.update({
+      where: { clerkId },
+      data: {
+        email,
+      },
+    });
+
+    return user;
+  } catch (error) {
+    console.error("Error creating user:", error);
+    throw error;
+  }
+}
+
+export async function deleteUser(clerkId: string) {
+  try {
+    const user = await prisma.user.delete({
+      where: { clerkId },
+    });
+
+    return user;
+  } catch (error) {
+    console.error("Error creating user:", error);
+    throw error;
+  }
+}
