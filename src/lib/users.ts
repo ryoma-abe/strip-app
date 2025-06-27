@@ -1,5 +1,4 @@
 import { prisma } from "@/lib/prisma";
-import { NextResponse } from "next/server";
 
 export async function createUser(clerkId: string, email: string) {
   try {
@@ -12,9 +11,9 @@ export async function createUser(clerkId: string, email: string) {
       },
     });
 
-    return NextResponse.json({ user, status: 201 });
+    return user;
   } catch (error) {
     console.error("Error creating user:", error);
-    return NextResponse.json({ error }, { status: 500 });
+    throw error;
   }
 }
