@@ -15,6 +15,6 @@ export async function createUser(clerkId: string, email: string) {
     return NextResponse.json({ user, status: 201 });
   } catch (error) {
     console.error("Error creating user:", error);
-    return null;
+    return NextResponse.json({ error }, { status: 500 });
   }
 }
