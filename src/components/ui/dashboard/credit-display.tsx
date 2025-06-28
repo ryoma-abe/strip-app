@@ -1,6 +1,17 @@
 import { getUserCredits } from "@/lib/credit";
 import { currentUser } from "@clerk/nextjs/server";
 import { Lock } from "lucide-react";
+import { Suspense } from "react";
+
+const CreditsContent = async () => {
+  const credits = await getUserCredits();
+  return (
+    <div className="border rounded-lg bg-muted p-2">
+      <div className="text-sm font-medium">残りクレジット</div>
+      <div className="text-sm font-medium mt-2">{credits}クレジット</div>
+    </div>
+  );
+};
 
 const CreditDisplay = async () => {
   const user = await currentUser();
@@ -13,13 +24,10 @@ const CreditDisplay = async () => {
       </div>
     );
   }
-
-  const credits = await getUserCredits();
   return (
-    <div className="border rounded-lg bg-muted p-2">
-      <div className="text-sm font-medium">残りクレジット</div>
-      <div className="text-sm font-medium mt-2">{credits}クレジット</div>
-    </div>
+    <Suspense fallback={<div>Loading...</div>}>
+      <CreditsContent />
+    </Suspense>
   );
 };
 
