@@ -1,5 +1,4 @@
 import { getUserCredits } from "@/lib/credit";
-import React from "react";
 
 const CreditDisplay = async () => {
   const credits = await getUserCredits();

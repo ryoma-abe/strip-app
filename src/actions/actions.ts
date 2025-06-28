@@ -1,12 +1,22 @@
 "use server";
 
+import { decrementUserCredits } from "@/lib/credit";
 import { generateImageState, RemoveBackgroundState } from "@/types/actions";
+import { currentUser } from "@clerk/nextjs/server";
+import { revalidatePath } from "next/cache";
 
 export async function generateImage(
   state: generateImageState,
   formData: FormData
 ): Promise<generateImageState> {
   const keyword = formData.get("keyword");
+  const user = await currentUser();
+  if (!user) {
+    return {
+      status: "error",
+      error: "ユーザーが見つかりません",
+    };
+  }
 
   if (!keyword || typeof keyword !== "string") {
     return {
@@ -23,6 +33,8 @@ export async function generateImage(
       body: JSON.stringify({ keyword }),
     });
     const data = await res.json();
+    await decrementUserCredits(user.id);
+    revalidatePath("/dashboard");
     return {
       status: "success",
       imageUrl: data.imageUrl,
