@@ -1,6 +1,6 @@
 import { getUserCredits } from "@/lib/credit";
 import { currentUser } from "@clerk/nextjs/server";
-import { Lock } from "lucide-react";
+import { Loader2, Lock } from "lucide-react";
 import { Suspense } from "react";
 
 const CreditsContent = async () => {
@@ -25,7 +25,14 @@ const CreditDisplay = async () => {
     );
   }
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense
+      fallback={
+        <div className="border rounded-lg bg-muted py-4 px-2 flex items-center gap-2">
+          <Loader2 className="size-4 animate-spin" />
+          <div className="text-sm font-medium">読込中...</div>
+        </div>
+      }
+    >
       <CreditsContent />
     </Suspense>
   );
