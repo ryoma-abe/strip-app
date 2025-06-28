@@ -79,7 +79,7 @@ export default function ImageGenerator() {
               )}
             </Button>
           ) : (
-            <SignInButton mode="modal">
+            <SignInButton mode="modal" signUpForceRedirectUrl="/dashboard">
               <Button className="w-full">
                 <ImageIcon className="mr-2" />
                 ログインして画像を生成

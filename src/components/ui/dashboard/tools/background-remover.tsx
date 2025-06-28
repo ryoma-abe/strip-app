@@ -82,7 +82,7 @@ export default function BackgroundRemover() {
               )}
             </Button>
           ) : (
-            <SignInButton mode="modal">
+            <SignInButton mode="modal" signUpForceRedirectUrl="/dashboard">
               <Button className="w-full">
                 <Layers className="mr-2" />
                 ログインして背景を削除
