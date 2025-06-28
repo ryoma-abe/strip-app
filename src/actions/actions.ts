@@ -13,16 +13,16 @@ export async function generateImage(
   const keyword = formData.get("keyword");
   const user = await currentUser();
   const credits = await getUserCredits();
-
+  if (credits <= 0) {
+    redirect("/dashboard/plan?reason=insufficient-credits");
+  }
   if (!user) {
     return {
       status: "error",
       error: "ユーザーが見つかりません",
     };
   }
-  if (credits <= 0) {
-    redirect("/dashboard/plan?reason=insufficient-credits");
-  }
+
   if (!keyword || typeof keyword !== "string") {
     return {
       status: "error",
@@ -59,7 +59,17 @@ export async function removeBackground(
   formData: FormData
 ): Promise<RemoveBackgroundState> {
   const image = formData.get("image") as File;
-
+  const user = await currentUser();
+  const credits = await getUserCredits();
+  if (!user) {
+    return {
+      status: "error",
+      error: "ユーザーが見つかりません",
+    };
+  }
+  if (credits <= 0) {
+    redirect("/dashboard/plan?reason=insufficient-credits");
+  }
   if (!image) {
     return {
       status: "error",
@@ -76,6 +86,8 @@ export async function removeBackground(
       throw new Error("背景の削除に失敗しました");
     }
     const data = await res.json();
+    await decrementUserCredits(user.id);
+    revalidatePath("/dashboard");
     return {
       status: "success",
       processedImage: data.imageUrl,
