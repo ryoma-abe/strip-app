@@ -1,9 +1,10 @@
 "use server";
 
-import { decrementUserCredits } from "@/lib/credit";
+import { decrementUserCredits, getUserCredits } from "@/lib/credit";
 import { generateImageState, RemoveBackgroundState } from "@/types/actions";
 import { currentUser } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 export async function generateImage(
   state: generateImageState,
@@ -11,13 +12,17 @@ export async function generateImage(
 ): Promise<generateImageState> {
   const keyword = formData.get("keyword");
   const user = await currentUser();
+  const credits = await getUserCredits();
+
   if (!user) {
     return {
       status: "error",
       error: "ユーザーが見つかりません",
     };
   }
-
+  if (credits <= 0) {
+    redirect("/dashboard/plan?reason=insufficient-credits");
+  }
   if (!keyword || typeof keyword !== "string") {
     return {
       status: "error",
