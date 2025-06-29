@@ -5,7 +5,7 @@ export const plans = [
     name: "Starter",
     icon: Sparkles,
     price: "¥1,000",
-    description: "For small projects and personal use",
+    description: "個人利用に最適なプランです",
     features: ["月50クレジット付与", "基本的な画像生成", "メールサポート"],
     buttonText: "Starterプランを選択",
     priceId: "price_1QZ002FZ0000000000000000",
