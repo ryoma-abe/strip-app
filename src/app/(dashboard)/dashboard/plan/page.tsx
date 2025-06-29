@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { plans } from "@/config/plan";
 import { Check } from "lucide-react";
 
@@ -19,8 +20,15 @@ export default function PlanPage() {
           return (
             <div
               key={plan.name}
-              className="bg-white rounded-2xl shadow-lg border border-gray-200 hover:shadow-xl transition-shadow"
+              className={`relative bg-white rounded-2xl shadow-lg border border-gray-200 hover:shadow-xl transition-shadow ${
+                plan.popular ? "ring-2 ring-blue-500 scale-105" : ""
+              }`}
             >
+              {plan.popular && (
+                <div className="absolute top-4 right-4 bg-blue-500 text-white text-xs font-semibold px-3 py-1 rounded-full shadow">
+                  人気プラン
+                </div>
+              )}
               <div className="p-8 flex flex-col h-full">
                 <div className="text-center mb-6">
                   <div className="flex justify-center mb-2">
@@ -46,9 +54,12 @@ export default function PlanPage() {
                   ))}
                 </ul>
 
-                <button className="mt-auto w-full py-3 px-6 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors">
+                <Button
+                  variant={plan.popular ? "default" : "outline"}
+                  className="w-full"
+                >
                   {plan.buttonText}
-                </button>
+                </Button>
               </div>
             </div>
           );
