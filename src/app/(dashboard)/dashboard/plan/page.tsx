@@ -1,8 +1,26 @@
+"use client";
+import { createStripeSession } from "@/actions/stripe";
 import { Button } from "@/components/ui/button";
 import { plans } from "@/config/plan";
 import { Check } from "lucide-react";
+import { useActionState } from "react";
 
 export default function PlanPage() {
+  const initialState = {
+    status: "idle",
+    error: "",
+  };
+  const [state, formAction] = useActionState(async (prevState, FormData) => {
+    const result = await createStripeSession(prevState, FormData);
+
+    if (result.status === "error") {
+      console.error(result.error);
+    } else if (result.status === "success" && result.redirectUrl) {
+      window.location.href = result.redirectUrl;
+    }
+    return result;
+  }, initialState);
+
   return (
     <div className="container mx-auto px-4 py-16 max-w-6xl">
       <div className="text-center mb-16">
@@ -53,13 +71,15 @@ export default function PlanPage() {
                     </li>
                   ))}
                 </ul>
-
-                <Button
-                  variant={plan.popular ? "default" : "outline"}
-                  className="w-full"
-                >
-                  {plan.buttonText}
-                </Button>
+                <form action={formAction}>
+                  <input type="hidden" name="priceId" value={plan.priceId} />
+                  <Button
+                    variant={plan.popular ? "default" : "outline"}
+                    className="w-full"
+                  >
+                    {plan.buttonText}
+                  </Button>
+                </form>
               </div>
             </div>
           );

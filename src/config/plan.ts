@@ -8,7 +8,7 @@ export const plans = [
     description: "個人利用に最適なプランです",
     features: ["月50クレジット付与", "基本的な画像生成", "メールサポート"],
     buttonText: "Starterプランを選択",
-    priceId: "prod_SarrKPiAS442Yx",
+    priceId: "price_1Rfg81CjQk4bcqCwb0PUwQCO",
   },
   {
     name: "Pro",
@@ -18,7 +18,7 @@ export const plans = [
     features: ["月120クレジット付与", "優先サポート", "商用利用可"],
     popular: true,
     buttonText: "Proプランを選択",
-    priceId: "prod_Sars2sig58qwjn",
+    priceId: "price_1Rfg8OCjQk4bcqCwZOFSmzcR",
   },
   {
     name: "Enterprise",
@@ -27,6 +27,6 @@ export const plans = [
     description: "ビジネス向けの大規模な制作活動に",
     features: ["月300クレジット付与", "24時間優先サポート", "商用利用可"],
     buttonText: "Enterpriseプランを選択",
-    priceId: "prod_SarsGp6sukQje1",
+    priceId: "price_1Rfg8dCjQk4bcqCws1DnkJMU",
   },
 ];
