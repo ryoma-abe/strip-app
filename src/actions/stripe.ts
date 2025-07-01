@@ -1,10 +1,9 @@
 "use server";
+import { stripe } from "@/config/stripe";
 import { prisma } from "@/lib/prisma";
 import { StripeState } from "@/types/actions";
 import { currentUser } from "@clerk/nextjs/server";
-import Stripe from "stripe";
-// ストライプの初期化
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+
 
 export async function createStripeSession(
   prevState: StripeState,
