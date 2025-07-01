@@ -1,11 +1,15 @@
 "use server";
 import { prisma } from "@/lib/prisma";
+import { StripeState } from "@/types/actions";
 import { currentUser } from "@clerk/nextjs/server";
 import Stripe from "stripe";
 // ストライプの初期化
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
-export async function createStripeSession(prevState, formData: FormData) {
+export async function createStripeSession(
+  prevState: StripeState,
+  formData: FormData
+): Promise<StripeState> {
   const priceId = formData.get("priceId");
   const user = await currentUser();
   if (!user) {
