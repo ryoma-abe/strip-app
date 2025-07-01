@@ -2,24 +2,33 @@
 import { createStripeSession } from "@/actions/stripe";
 import { Button } from "@/components/ui/button";
 import { plans } from "@/config/plan";
+import { StripeState } from "@/types/actions";
 import { Check } from "lucide-react";
 import { useActionState } from "react";
 
 export default function PlanPage() {
-  const initialState = {
+  const initialState: StripeState = {
     status: "idle",
     error: "",
+    redirectUrl: "",
   };
-  const [state, formAction] = useActionState(async (prevState, FormData) => {
-    const result = await createStripeSession(prevState, FormData);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [state, formAction, pending] = useActionState(
+    async (
+      prevState: StripeState,
+      FormData: FormData
+    ): Promise<StripeState> => {
+      const result = await createStripeSession(prevState, FormData);
 
-    if (result.status === "error") {
-      console.error(result.error);
-    } else if (result.status === "success" && result.redirectUrl) {
-      window.location.href = result.redirectUrl;
-    }
-    return result;
-  }, initialState);
+      if (result.status === "error") {
+        console.error(result.error);
+      } else if (result.status === "success" && result.redirectUrl) {
+        window.location.href = result.redirectUrl;
+      }
+      return result;
+    },
+    initialState
+  );
 
   return (
     <div className="container mx-auto px-4 py-16 max-w-6xl">
