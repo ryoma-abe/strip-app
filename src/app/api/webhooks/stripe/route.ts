@@ -52,13 +52,13 @@ export async function POST(request: NextRequest) {
 
       switch (priceId) {
         case "price_1Rfg81CjQk4bcqCwb0PUwQCO":
-          subscriptionStatus = "FREE";
+          subscriptionStatus = "STARTER";
           break;
         case "price_1Rfg8OCjQk4bcqCwZOFSmzcR":
-          subscriptionStatus = "BASIC";
+          subscriptionStatus = "PRO";
           break;
         case "price_1Rfg8dCjQk4bcqCws1DnkJMU":
-          subscriptionStatus = "PRO";
+          subscriptionStatus = "ENTERPRISE";
           break;
       }
       // 初回はサブスク情報の登録のみ
