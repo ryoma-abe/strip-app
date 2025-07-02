@@ -11,7 +11,7 @@ const SettingsPage = () => {
         description="ここでは、アカウントの設定を行うことができます。"
       />
       {/* アカウントの確認 */}
-      <div>
+      <div className="max-w-2xl">
         <ProfileSection />
       </div>
       {/* サブスクリプションの確認 */}
