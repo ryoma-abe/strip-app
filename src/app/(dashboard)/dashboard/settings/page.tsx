@@ -12,10 +12,19 @@ const SettingsPage = async () => {
   }
   const dbUser = await prisma.user.findUnique({
     where: { clerkId: user.id },
+    include: {
+      subscription: true,
+    },
   });
   if (!dbUser) {
     return <div>ユーザーが見つかりません</div>;
   }
+
+  const email = user.emailAddresses[0].emailAddress;
+  const name = user.firstName + " " + user.lastName;
+  const subscriptionStatus = dbUser.subscriptionStatus;
+  const nextBillingDate = dbUser.subscription?.stripeCurrentPeriodEnd;
+
   return (
     <PageContainer>
       <PageHeader
@@ -24,7 +33,12 @@ const SettingsPage = async () => {
       />
       {/* アカウントの確認 */}
       <div className="max-w-2xl">
-        <ProfileSection />
+        <ProfileSection
+          email={email}
+          name={name}
+          subscriptionStatus={subscriptionStatus}
+          nextBillingDate={nextBillingDate}
+        />
       </div>
       {/* サブスクリプションの確認 */}
       <div>
