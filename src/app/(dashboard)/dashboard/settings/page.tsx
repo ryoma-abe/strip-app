@@ -41,8 +41,8 @@ const SettingsPage = async () => {
         />
       </div>
       {/* サブスクリプションの確認 */}
-      <div>
-        <SubscriptionSettingsForm />
+      <div className="max-w-2xl">
+        <SubscriptionSettingsForm user={dbUser} />
       </div>
     </PageContainer>
   );
