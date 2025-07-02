@@ -78,11 +78,30 @@ export async function POST(request: NextRequest) {
         },
       });
       break;
-    case "payment_method.attached":
-      // Payment method attached - implement logic as needed
+    case "customer.subscription.updated":
+      const subscriptionSession = event.data.object;
+      if (subscriptionSession.status === "active") {
+        let credits = 5;
+        const priceId = subscriptionSession.items.data[0].price.id;
+        switch (priceId) {
+          case "price_1Rfg81CjQk4bcqCwb0PUwQCO":
+            credits = 50;
+            break;
+          case "price_1Rfg8OCjQk4bcqCwZOFSmzcR":
+            credits = 120;
+            break;
+          case "price_1Rfg8dCjQk4bcqCws1DnkJMU":
+            credits = 300;
+            break;
+        }
+        await prisma.user.update({
+          where: { stripeCustomerID: subscriptionSession.customer as string },
+          data: {
+            credits: credits,
+          },
+        });
+      }
       break;
-    default:
-      console.log(`Unhandled event type ${event.type}.`);
   }
 
   return new NextResponse("Success", { status: 200 });
