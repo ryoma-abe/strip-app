@@ -38,8 +38,13 @@ export async function POST(req: NextRequest) {
       }
       try {
         const user = await deleteUser(evt.data.id);
+        if (!user) {
+          // ユーザーが既に削除されている場合は正常終了
+          return NextResponse.json({ message: "User already deleted or not found" }, { status: 200 });
+        }
         return NextResponse.json({ user }, { status: 200 });
       } catch (error) {
+        console.error("ユーザー削除エラー:", error);
         return NextResponse.json({ error }, { status: 500 });
       }
     }
