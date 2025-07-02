@@ -155,6 +155,13 @@ export async function POST(request: NextRequest) {
             where: { stripeCustomerID: subscriptionSession.customer as string },
             data: {
               credits: credits, // プランに応じたクレジットに更新
+              subscription: {
+                update: {
+                  stripeCurrentPeriodEnd: new Date(
+                    subscriptionSession.items.data[0].current_period_end * 1000
+                  ),
+                },
+              },
             },
           });
           console.log("✅ Credits updated for subscription renewal:", {
