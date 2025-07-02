@@ -8,6 +8,7 @@ export async function POST(request: NextRequest) {
   const body = await request.text();
   const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
+  // エンドポイントが正しいか確認
   if (endpointSecret) {
     const signature = request.headers.get("stripe-signature") as string;
     try {
@@ -25,18 +26,31 @@ export async function POST(request: NextRequest) {
   switch (event.type) {
     case "checkout.session.completed":
       const session = event.data.object;
-      // エラーハンドリング
+
+      // セッションのメタデータとサブスクリプションが存在するか確認
       if (!session.metadata || !session.subscription) {
         return new NextResponse("Session Error", { status: 500 });
       }
-      const subscription = (await stripe.subscriptions.retrieve(
-        session.subscription as string
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      )) as any;
+      const subscription = await stripe.subscriptions.retrieve(
+        session.subscription as string,
+        { expand: ["items.data"] }
+      );
+      // アイテムの取得とチェック
+      const item = subscription.items.data[0];
+      if (!item || !item.current_period_end) {
+        console.error(
+          "subscription.items.data が空、または current_period_end が欠落:",
+          subscription
+        );
+        return new NextResponse("Subscription item error", { status: 500 });
+      }
+
+      const periodEnd = item.current_period_end;
+      const priceId = item.price.id;
 
       let subscriptionStatus: SubscriptionStatus = "FREE";
 
-      switch (subscription.items.data[0].price.id) {
+      switch (priceId) {
         case "price_1Rfg81CjQk4bcqCwb0PUwQCO":
           subscriptionStatus = "FREE";
           break;
@@ -58,9 +72,7 @@ export async function POST(request: NextRequest) {
             create: {
               stripeSubscriptionID: subscription.id,
               stripePriceID: subscription.items.data[0].price.id,
-              stripeCurrentPeriodEnd: new Date(
-                subscription.current_period_end * 1000
-              ),
+              stripeCurrentPeriodEnd: new Date(periodEnd * 1000),
             },
           },
         },

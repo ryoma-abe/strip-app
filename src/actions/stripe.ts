@@ -4,7 +4,6 @@ import { prisma } from "@/lib/prisma";
 import { StripeState } from "@/types/actions";
 import { currentUser } from "@clerk/nextjs/server";
 
-
 export async function createStripeSession(
   prevState: StripeState,
   formData: FormData
@@ -48,6 +47,9 @@ export async function createStripeSession(
       mode: "subscription",
       success_url: `${process.env.BASE_URL}/dashboard?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${process.env.BASE_URL}/dashboard?canceled=true`,
+      metadata: {
+        clerkId: user.id,
+      },
     });
 
     if (!session.url) {
