@@ -124,3 +124,7 @@
 .cl-avatarBox {
   @apply h-10 w-10;
 }
+
+button {
+  @apply cursor-pointer;
+}
