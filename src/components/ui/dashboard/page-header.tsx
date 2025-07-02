@@ -12,14 +12,9 @@ export default function PageHeader({
   children,
 }: PageHeaderProps) {
   return (
-    <div className="relative space-y-2">
-      <div className="absolute -inset-x-4 -inset-y-2 bg-gradient-to-r from-primary/5 via-transparent to-transparent opacity-50 blur-2xl" />
-      <h2 className="relative text-3xl font-bold tracking-tight bg-gradient-to-br from-foreground to-foreground/70 bg-clip-text text-transparent">
-        {title}
-      </h2>
-      {description && (
-        <p className="relative text-muted-foreground/90">{description}</p>
-      )}
+    <div className="space-y-1">
+      <h2 className="text-3xl font-bold tracking-tight">{title}</h2>
+      {description && <p className="text-muted-foreground">{description}</p>}
       {children}
     </div>
   );
