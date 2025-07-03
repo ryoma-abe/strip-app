@@ -1,27 +1,23 @@
-"use client";
 import PageContainer from "@/components/ui/dashboard/page-container";
 import PageHeader from "@/components/ui/dashboard/page-header";
-import { useUser } from "@clerk/nextjs";
 import StatsCards from "@/components/ui/dashboard/stats-cards";
 import QuickActions from "@/components/ui/dashboard/quick-actions";
+import { currentUser } from "@clerk/nextjs/server";
+import { prisma } from "@/lib/prisma";
 
-export default function DashboardPage() {
-  // これらの値は将来的にAPIから取得する予定
-  const userStats = {
-    currentCredits: 127,
-    totalCredits: 500,
-    imagesGenerated: 245,
-    timesSaved: 24.5,
-    currentPlan: "Pro",
-  };
-  const { isLoaded, user } = useUser();
-  if (!isLoaded) {
-    return <div>Loading...</div>;
-  }
+export default async function DashboardPage() {
+  const user = await currentUser();
   if (!user) {
-    return (
-      <div>ログインするとダッシュボードに各種利用状況が表示されます。</div>
-    );
+    return <div>ログインしてください</div>;
+  }
+  const dbUser = await prisma.user.findUnique({
+    where: { clerkId: user.id },
+    include: {
+      subscription: true,
+    },
+  });
+  if (!dbUser) {
+    return <div>ユーザーが見つかりません</div>;
   }
   return (
     <PageContainer>
@@ -31,7 +27,7 @@ export default function DashboardPage() {
       />
 
       {/* Stats Cards */}
-      <StatsCards userStats={userStats} />
+      <StatsCards dbUser={dbUser} />
 
       {/* Quick Actions */}
       <QuickActions />
