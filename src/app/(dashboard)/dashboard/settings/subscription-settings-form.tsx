@@ -1,6 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { User } from "@prisma/client";
+import Link from "next/link";
 
 type SubscriptionSettingsFormProps = {
   user: User;
@@ -36,7 +37,9 @@ const SubscriptionSettingsForm = ({ user }: SubscriptionSettingsFormProps) => {
             <p className="text-sm text-gray-600">
               サブスクリプションを購入してください。
             </p>
-            <Button>サブスクリプション購入</Button>
+            <Button>
+              <Link href="/dashboard/plan">サブスクリプション購入</Link>
+            </Button>
           </div>
         )}
       </div>
