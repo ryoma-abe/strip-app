@@ -5,10 +5,7 @@ import { LayersIcon, SparklesIcon, ZapIcon } from "lucide-react";
 
 export default function QuickActions() {
   return (
-    <div className="mb-8">
-      <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
-        クイックアクション
-      </h2>
+    <>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {/* AI Image Generation */}
         <Card className="group hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-800/20 border-purple-200">
@@ -61,6 +58,6 @@ export default function QuickActions() {
           </Link>
         </Card>
       </div>
-    </div>
+    </>
   );
 }
