@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import PageContainer from "@/components/ui/dashboard/page-container";
+import PageHeader from "@/components/ui/dashboard/page-header";
 
 export default function DashboardPage() {
   // これらの値は将来的にAPIから取得する予定
@@ -31,25 +32,13 @@ export default function DashboardPage() {
 
   return (
     <PageContainer>
-      {/* Welcome Section */}
-      <div className="mb-8">
-        <div className="flex items-center space-x-3 mb-4">
-          <div className="w-12 h-12 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg flex items-center justify-center">
-            <SparklesIcon className="h-6 w-6 text-white" />
-          </div>
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
-              おかえりなさい！
-            </h1>
-            <p className="text-gray-600 dark:text-gray-400">
-              AI Creator Studioで創造性を解き放ちましょう
-            </p>
-          </div>
-        </div>
-      </div>
+      <PageHeader
+        title="ダッシュボード"
+        description="ここでは、ツールの使用状況を確認することができます。"
+      />
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 m-8">
         <Card className="hover:shadow-lg transition-shadow border-l-4 border-l-purple-500">
           <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
@@ -64,7 +53,8 @@ export default function DashboardPage() {
               {userStats.currentCredits}
             </div>
             <p className="text-xs text-gray-500 dark:text-gray-500">
-              残り{userStats.totalCredits - userStats.currentCredits}クレジット
+              残り{userStats.totalCredits - userStats.currentCredits}
+              クレジット
             </p>
           </CardContent>
         </Card>
