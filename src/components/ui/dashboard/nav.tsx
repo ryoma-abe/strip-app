@@ -11,7 +11,7 @@ export default async function DashboardNavigation() {
       <NavItems />
       <CreditDisplay />
       {user && (
-        <Button asChild className="w-full mt-4" variant="premium">
+        <Button asChild className="w-full mt-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700" variant="default">
           <Link href="/dashboard/plan">アップグレード</Link>
         </Button>
       )}

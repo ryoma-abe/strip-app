@@ -10,8 +10,8 @@ const notoSansJP = Noto_Sans_JP({
 });
 
 export const metadata: Metadata = {
-  title: "AI Sass App",
-  description: "テストです。",
+  title: "AI Creator Studio",
+  description: "AI画像生成、背景除去、画像圧縮まで。プロフェッショナルな画像編集ツールをワンストップで提供。",
 };
 
 export default function RootLayout({
