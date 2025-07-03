@@ -5,15 +5,19 @@ import { tools, ToolType } from "@/config/tools";
 export default async function ToolPage({
   params,
 }: {
-  params: { tool: string };
+  params: Promise<{ tool: string }>;
 }) {
-  const toolName = (await params).tool as ToolType;
+  const { tool } = await params;
+  const toolName = tool as ToolType;
 
-  const tool = tools[toolName];
-  const ToolComponent = tool.component;
+  const toolConfig = tools[toolName];
+  const ToolComponent = toolConfig.component;
   return (
     <PageContainer>
-      <PageHeader title={tool.title} description={tool.description} />
+      <PageHeader
+        title={toolConfig.title}
+        description={toolConfig.description}
+      />
       <div className="max-w-2xl">
         <ToolComponent />
       </div>
