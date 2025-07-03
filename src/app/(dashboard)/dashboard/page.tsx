@@ -19,6 +19,7 @@ import {
 import Link from "next/link";
 import PageContainer from "@/components/ui/dashboard/page-container";
 import PageHeader from "@/components/ui/dashboard/page-header";
+import { useUser } from "@clerk/nextjs";
 
 export default function DashboardPage() {
   // これらの値は将来的にAPIから取得する予定
@@ -29,7 +30,13 @@ export default function DashboardPage() {
     timesSaved: 24.5,
     currentPlan: "Pro",
   };
-
+  const { isLoaded, user } = useUser();
+  if (!isLoaded) {
+    return <div>Loading...</div>;
+  }
+  if (!user) {
+    return <div>ログインするとダッシュボードに各種利用状況が表示されます。</div>;
+  }
   return (
     <PageContainer>
       <PageHeader

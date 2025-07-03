@@ -15,8 +15,8 @@ export default function NavItems() {
           <Button
             variant={pathName === item.href ? "default" : "ghost"}
             className={`w-full justify-start gap-2 ${
-              pathName === item.href 
-                ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700" 
+              pathName === item.href
+                ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700"
                 : "hover:bg-purple-50 dark:hover:bg-purple-900/20 text-gray-700 dark:text-gray-300"
             }`}
             asChild
