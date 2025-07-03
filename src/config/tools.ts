@@ -1,5 +1,6 @@
 import BackgroundRemover from "@/components/ui/dashboard/tools/background-remover";
 import ImageGenerator from "@/components/ui/dashboard/tools/image-generator";
+import Optimize from "@/components/ui/dashboard/tools/optimize";
 
 export const tools = {
   "image-generator": {
@@ -15,7 +16,7 @@ export const tools = {
   optimize: {
     title: "画像圧縮",
     description: "画像圧縮ページです",
-    component: ImageGenerator,
+    component: Optimize,
   },
 };
 

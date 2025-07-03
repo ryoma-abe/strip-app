@@ -1,16 +1,10 @@
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "../card";
-import { ClockIcon, CreditCardIcon, ImageIcon } from "lucide-react";
+import { CreditCardIcon } from "lucide-react";
+import { User } from "@prisma/client";
 
-type UserStats = {
-  currentCredits: number;
-  totalCredits: number;
-  imagesGenerated: number;
-  timesSaved: number;
-  currentPlan: string;
-};
-
-export default function StatsCards({ userStats }: { userStats: UserStats }) {
+export default async function StatsCards({ dbUser }: { dbUser: User }) {
+  const credits = dbUser.credits;
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 m-8">
       <Card className="hover:shadow-lg transition-shadow border-l-4 border-l-purple-500">
@@ -24,46 +18,11 @@ export default function StatsCards({ userStats }: { userStats: UserStats }) {
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">
-            {userStats.currentCredits}
+            {dbUser.credits}
           </div>
           <p className="text-xs text-gray-500 dark:text-gray-500">
-            残り{userStats.totalCredits - userStats.currentCredits}
-            クレジット
+            残り{credits}クレジット
           </p>
-        </CardContent>
-      </Card>
-
-      <Card className="hover:shadow-lg transition-shadow border-l-4 border-l-pink-500">
-        <CardHeader className="pb-3">
-          <div className="flex items-center justify-between">
-            <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">
-              生成した画像
-            </CardTitle>
-            <ImageIcon className="h-4 w-4 text-pink-600" />
-          </div>
-        </CardHeader>
-        <CardContent>
-          <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">
-            {userStats.imagesGenerated}
-          </div>
-          <p className="text-xs text-green-600">+12% 先月比</p>
-        </CardContent>
-      </Card>
-
-      <Card className="hover:shadow-lg transition-shadow border-l-4 border-l-blue-500">
-        <CardHeader className="pb-3">
-          <div className="flex items-center justify-between">
-            <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">
-              処理時間の節約
-            </CardTitle>
-            <ClockIcon className="h-4 w-4 text-blue-600" />
-          </div>
-        </CardHeader>
-        <CardContent>
-          <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">
-            {userStats.timesSaved}時間
-          </div>
-          <p className="text-xs text-gray-500 dark:text-gray-500">今月の累計</p>
         </CardContent>
       </Card>
 
@@ -78,7 +37,7 @@ export default function StatsCards({ userStats }: { userStats: UserStats }) {
         </CardHeader>
         <CardContent>
           <div className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-            {userStats.currentPlan}
+            {dbUser.subscriptionStatus}
           </div>
           <p className="text-xs text-gray-500 dark:text-gray-500">アクティブ</p>
         </CardContent>
