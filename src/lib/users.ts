@@ -1,5 +1,7 @@
 import { prisma } from "@/lib/prisma";
+import { NextResponse } from "next/server";
 
+// ユーザー作成
 export async function createUser(clerkId: string, email: string) {
   try {
     const user = await prisma.user.create({
@@ -18,6 +20,7 @@ export async function createUser(clerkId: string, email: string) {
   }
 }
 
+// ユーザー更新
 export async function updateUser(clerkId: string, email: string) {
   try {
     const user = await prisma.user.update({
@@ -34,25 +37,23 @@ export async function updateUser(clerkId: string, email: string) {
   }
 }
 
+// ユーザー削除
 export async function deleteUser(clerkId: string) {
   try {
-    // まずユーザーが存在するか確認
-    const existingUser = await prisma.user.findUnique({
-      where: { clerkId },
+    const user = await prisma.$transaction(async (tx) => {
+      await tx.subscription.deleteMany({
+        where: { user: { clerkId } },
+      });
+
+      const user = await tx.user.delete({
+        where: { clerkId },
+      });
+
+      return user;
     });
-
-    if (!existingUser) {
-      // ユーザーが見つからない場合は静かに処理（既に削除済みの可能性）
-      return null;
-    }
-
-    const user = await prisma.user.delete({
-      where: { clerkId },
-    });
-
-    return user;
+    return NextResponse.json({ user }, { status: 200 });
   } catch (error) {
-    console.error("削除に失敗しました:", error);
+    console.error("削除に失敗しました", error);
     throw error;
   }
 }
