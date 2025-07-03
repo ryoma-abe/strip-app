@@ -287,87 +287,6 @@ export default function Home() {
                 </ul>
               </CardContent>
             </Card>
-
-            {/* Style Transfer */}
-            <Card className="hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <PaletteIcon className="h-12 w-12 text-blue-600 mb-4" />
-                <CardTitle>スタイル変換</CardTitle>
-                <CardDescription>
-                  画像を様々なアートスタイルに変換
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2">
-                  <li className="flex items-center">
-                    <CheckIcon className="h-5 w-5 text-green-500 mr-2" />
-                    <span className="text-sm">100以上のスタイル</span>
-                  </li>
-                  <li className="flex items-center">
-                    <CheckIcon className="h-5 w-5 text-green-500 mr-2" />
-                    <span className="text-sm">カスタムスタイル作成</span>
-                  </li>
-                  <li className="flex items-center">
-                    <CheckIcon className="h-5 w-5 text-green-500 mr-2" />
-                    <span className="text-sm">リアルタイムプレビュー</span>
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-
-            {/* Image Enhancement */}
-            <Card className="hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <WandIcon className="h-12 w-12 text-green-600 mb-4" />
-                <CardTitle>画像高画質化</CardTitle>
-                <CardDescription>
-                  AIで低解像度画像を高画質に変換
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2">
-                  <li className="flex items-center">
-                    <CheckIcon className="h-5 w-5 text-green-500 mr-2" />
-                    <span className="text-sm">最大4倍の解像度向上</span>
-                  </li>
-                  <li className="flex items-center">
-                    <CheckIcon className="h-5 w-5 text-green-500 mr-2" />
-                    <span className="text-sm">ノイズ除去</span>
-                  </li>
-                  <li className="flex items-center">
-                    <CheckIcon className="h-5 w-5 text-green-500 mr-2" />
-                    <span className="text-sm">顔認識補正</span>
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-
-            {/* Batch Processing */}
-            <Card className="hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <BarChart3Icon className="h-12 w-12 text-orange-600 mb-4" />
-                <CardTitle>バッチ処理</CardTitle>
-                <CardDescription>
-                  複数の画像を一括で処理し、作業効率を大幅向上
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2">
-                  <li className="flex items-center">
-                    <CheckIcon className="h-5 w-5 text-green-500 mr-2" />
-                    <span className="text-sm">最大1000枚同時処理</span>
-                  </li>
-                  <li className="flex items-center">
-                    <CheckIcon className="h-5 w-5 text-green-500 mr-2" />
-                    <span className="text-sm">進捗リアルタイム確認</span>
-                  </li>
-                  <li className="flex items-center">
-                    <CheckIcon className="h-5 w-5 text-green-500 mr-2" />
-                    <span className="text-sm">処理履歴保存</span>
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
           </div>
         </div>
       </section>
@@ -643,7 +562,6 @@ export default function Home() {
                 <h4 className="font-semibold mb-2">クレジットとは何ですか？</h4>
                 <p className="text-gray-600">
                   クレジットは各機能を利用する際に消費されるポイントです。
-                  画像生成は10クレジット、背景除去は5クレジット、圧縮は1クレジットを消費します。
                 </p>
               </div>
               <div className="bg-white p-6 rounded-lg shadow-sm">
@@ -651,7 +569,9 @@ export default function Home() {
                   無料プランから有料プランへの移行はいつでも可能ですか？
                 </h4>
                 <p className="text-gray-600">
-                  はい、いつでもアップグレード可能です。アップグレード後は即座に追加機能が利用できます。
+                  はい、いつでもアップグレード可能です。
+                  <br />
+                  アップグレード後は即座に追加機能が利用できます。
                 </p>
               </div>
               <div className="bg-white p-6 rounded-lg shadow-sm">
@@ -659,7 +579,9 @@ export default function Home() {
                   生成した画像の商用利用は可能ですか？
                 </h4>
                 <p className="text-gray-600">
-                  有料プランでは商用利用が可能です。フリープランでは個人利用のみとなります。
+                  有料プランでは商用利用が可能です。
+                  <br />
+                  フリープランでは個人利用のみとなります。
                 </p>
               </div>
             </div>
@@ -675,6 +597,7 @@ export default function Home() {
           </h2>
           <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
             無料クレジットで全機能をお試しください。
+            <br />
             クレジットカード登録は不要です。
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -686,7 +609,7 @@ export default function Home() {
             </Link>
           </div>
           <p className="mt-4 text-white/80">
-            50クレジット無料 • いつでもキャンセル可能
+            無料プランで利用可能 • いつでもキャンセル可能
           </p>
         </div>
       </section>
