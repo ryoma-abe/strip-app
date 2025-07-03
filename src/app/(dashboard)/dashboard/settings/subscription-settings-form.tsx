@@ -8,7 +8,15 @@ type SubscriptionSettingsFormProps = {
 
 const SubscriptionSettingsForm = ({ user }: SubscriptionSettingsFormProps) => {
   const handleManageSubscription = async () => {
-    return;
+    try {
+      const response = await fetch("/api/create-portal-session", {
+        method: "POST",
+      });
+      const data = await response.json();
+      window.location.href = data.url;
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
